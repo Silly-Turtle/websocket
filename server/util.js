@@ -3,8 +3,7 @@ const actions = require('./actions.js');
 function sendStatus(socket) {
   const waitStatus = setInterval(() => {
     if (socket.readyState === 1) {
-      const status = actions.waitStatus(socket.waitStatus);
-      socket.send(JSON.stringify(status));
+      socket.send(JSON.stringify(actions.waitStatus(socket.waitStatus)));
       if (socket.roomId) {
         const roomId = actions.joinedRoom(
           socket.roomId,
@@ -17,8 +16,11 @@ function sendStatus(socket) {
   }, 1000);
 }
 
-function sendMessages(socket, data, type) {
-  if (socket.opponent.readyState === 1) {
+function sendMessages(socket, data, type, counter = 0) {
+  if (counter === 3) {
+    return counter;
+  }
+  if (socket.opponent && socket.opponent.readyState === 1) {
     let body = '';
     if (type === 'CODE') {
       body = actions.code(data);
@@ -27,9 +29,9 @@ function sendMessages(socket, data, type) {
       body = actions.description(data);
     }
     socket.opponent.send(JSON.stringify(body));
-  } else {
-    socket.opponent.terminate();
+    return counter;
   }
+  return sendMessages(socket, data, type, counter + 1);
 }
 
 module.exports = { sendStatus, sendMessages };

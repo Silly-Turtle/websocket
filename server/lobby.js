@@ -42,9 +42,9 @@ Lobby.prototype.addToWaitingQue = function addToWaitingQue() {
 
 Lobby.prototype.createRoom = function createRoom() {
   const that = this;
+  const key = Date.now();
   setInterval(() => {
     if (that.waitingQueue.length === 2) {
-      const key = Date.now();
       const playerX = that.waitingQueue.pop();
       const playerY = that.waitingQueue.pop();
       playerX.waitStatus = 3;
@@ -62,7 +62,7 @@ Lobby.prototype.removeRoom = function removeRoom() {
   const that = this;
   setInterval(() => {
     Object.values(that.battleRooms).forEach(room => {
-      console.log(room.playerX.readyState, room.playerY.readyState);
+      // console.log(room.playerX.readyState, room.playerY.readyState);
       if (room.playerX.readyState === 3 && room.playerY.readyState === 3) {
         delete that.battleRooms[room.key];
       }

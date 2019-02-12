@@ -24,14 +24,17 @@ ws.on('connection', socket => {
     const { type, payload } = JSON.parse(data);
     switch (type) {
       case 'JOIN_ROOM': {
+        // console.log(payload);
         socket.userName = payload;
         break;
       }
       case 'DESCRIPTION': {
+        // console.log('description broken', data);
         util.sendMessages(socket, payload, 'DESCRIPTION');
         break;
       }
       case 'CODE': {
+        // console.log('CODE broken', socket);
         util.sendMessages(socket, payload, 'CODE');
         break;
       }
@@ -39,7 +42,6 @@ ws.on('connection', socket => {
         console.log('unrecognized type');
       }
     }
-
   });
 });
 
