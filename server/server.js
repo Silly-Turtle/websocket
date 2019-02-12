@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
-const LobbyCntr = require('./Lobby.js');
-const util = require('./Server_Util.js');
+const LobbyCntr = require('./lobby.js');
+const util = require('./util.js');
 
 const ws = new WebSocket.Server({
   port: 8001,
@@ -16,7 +16,6 @@ Lobby.removeRoom();
 // setInterval(() => console.log(Lobby), 5000);
 
 ws.on('connection', socket => {
-  // console.log("connected", req.headers);
   Lobby.addToGeneralQueue(socket);
 
   util.sendStatus(socket);

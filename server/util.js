@@ -1,4 +1,4 @@
-const actions = require('./Actions.js');
+const actions = require('./actions.js');
 
 function sendStatus(socket) {
   const waitStatus = setInterval(() => {
@@ -18,17 +18,6 @@ function sendStatus(socket) {
 }
 
 function sendMessages(socket, data, type) {
-  // const room = Lobby.battleRooms[socket.roomId];
-  // [room.playerX, room.playerY].forEach(player => {
-  //   if (player !== socket && player.readyState === 1) {
-  //     const code = actions.code(data);
-  //     player.send(JSON.stringify(code));
-  //   } else if (player.readyState === 3) {
-  //     const otherPlayerLeft = actions.otherPlayerLeft();
-  //     socket.send(JSON.stringify(otherPlayerLeft));
-  //     player.terminate();
-  //   }
-  // });
   if (socket.opponent.readyState === 1) {
     let body = '';
     if (type === 'CODE') {

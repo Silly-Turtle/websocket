@@ -1,4 +1,4 @@
-const Room = require('./Room.js');
+const Room = require('./room.js');
 
 function Lobby() {
   this.waitingQueue = [];
@@ -42,10 +42,9 @@ Lobby.prototype.addToWaitingQue = function addToWaitingQue() {
 
 Lobby.prototype.createRoom = function createRoom() {
   const that = this;
-  let counter = Date.now();
   setInterval(() => {
     if (that.waitingQueue.length === 2) {
-      const key = counter++;
+      const key = Date.now();
       const playerX = that.waitingQueue.pop();
       const playerY = that.waitingQueue.pop();
       playerX.waitStatus = 3;
