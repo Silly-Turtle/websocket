@@ -4,7 +4,7 @@ WORKDIR /home/websocket
 
 COPY ./package.json ./
 
-RUN npm install
+RUN npm install --only=prod
 
 COPY . .
 
